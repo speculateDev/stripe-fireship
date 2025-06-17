@@ -40,6 +40,42 @@ app.get("/cancel", (c) => {
   return c.text("Cancel!");
 });
 
+app.get("/", (c) => {
+  const html = `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://js.stripe.com/v3/" async></script>
+  </head>
+  <body>
+    <h1>Checkout</h1>
+
+    <button id="checkoutButton">Checkout</button>
+
+    <script>
+      const checkoutButton = document.getElementById("checkoutButton");
+      checkoutButton.addEventListener("click", async () => {
+        const res = await fetch("/checkout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const {id} = await res.json();
+        const stripe = Stripe('${process.env.STRIPE_PUBLISHABLE_KEY}');
+        await stripe.redirectToCheckout({sessionId: id});
+      });
+    </script>
+  </body>
+</html>
+`;
+
+  return c.html(html);
+});
+
 serve(
   {
     fetch: app.fetch,

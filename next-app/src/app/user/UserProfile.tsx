@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "../../../utils/supabaseClient";
 import { User } from "@supabase/supabase-js";
 import LoginForm from "./LoginForm";
+import toast from "react-hot-toast";
 
 export default function UserProfile() {
   const [user, setUser] = useState<User | null>(null);
@@ -51,6 +52,7 @@ export default function UserProfile() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
+    toast.success("Logged out successfully");
   };
 
   return (

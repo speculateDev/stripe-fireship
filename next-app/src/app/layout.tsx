@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,8 +27,44 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <Navbar />
+        <main className="prose p-12 text-center">{children}</main>
+        <Toaster />
       </body>
     </html>
   );
 }
+
+const Navbar = () => {
+  return (
+    <div className="navbar bg-base-100">
+      <div className="flex-1">
+        <Link href={"/"} className="btn btn-ghost text-xl">
+          🔥 Stripe for Saas
+        </Link>
+      </div>
+
+      <div className="flex-none">
+        <ul className="menu menu-horizontal px-1 gap-3">
+          <li>
+            <Link href="/" className="btn">
+              Home
+            </Link>
+          </li>
+
+          <li>
+            <Link className="btn" href="/photos">
+              Photos
+            </Link>
+          </li>
+
+          <li>
+            <Link className="btn" href="/user">
+              User Auth
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </div>
+  );
+};

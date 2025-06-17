@@ -93,6 +93,22 @@ app.post("/webhook", async (c) => {
     throw new HTTPException(400);
   }
 
+  if (event.type === "checkout.session.completed") {
+    const session = event.data.object;
+    console.log(session);
+  }
+
+  if (event.type === "customer.subscription.updated") {
+    const subscription = event.data.object;
+    console.log(subscription);
+  }
+
+  if (event.type === "customer.subscription.deleted") {
+    const subscription = event.data.object;
+
+    console.log(subscription);
+  }
+
   return c.text("success");
 });
 

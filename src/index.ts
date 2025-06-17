@@ -76,6 +76,26 @@ app.get("/", (c) => {
   return c.html(html);
 });
 
+app.post("/webhook", async (c) => {
+  // we need to check if endpoints are coming from stripe
+  const rawBody = await c.req.text();
+  const signature = c.req.header("stripe-signature");
+
+  let event;
+  try {
+    event = stripe.webhooks.constructEvent(
+      rawBody,
+      signature!,
+      process.env.STRIPE_WEBHOOK_SECRET!
+    );
+  } catch (error) {
+    console.error("Webhook signature verification failed: " + error?.message);
+    throw new HTTPException(400);
+  }
+
+  return c.text("success");
+});
+
 serve(
   {
     fetch: app.fetch,

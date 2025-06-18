@@ -1,3 +1,11 @@
+import CheckoutButton from "./CheckoutButton";
+
 export default function Home() {
-  return <div className="text-red-500">About</div>;
+  return (
+    <div>
+      <main>
+        <CheckoutButton />
+      </main>
+    </div>
+  );
 }

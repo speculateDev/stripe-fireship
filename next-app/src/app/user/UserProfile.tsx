@@ -5,6 +5,7 @@ import { supabase } from "../../../utils/supabaseClient";
 import { User } from "@supabase/supabase-js";
 import LoginForm from "./LoginForm";
 import toast from "react-hot-toast";
+import PortalButton from "../portal/PortalButton";
 
 export default function UserProfile() {
   const [user, setUser] = useState<User | null>(null);
@@ -85,6 +86,7 @@ export default function UserProfile() {
                 <pre>
                   <code>{JSON.stringify(stripeCustomer, null, 2)}</code>
                 </pre>
+                <PortalButton />
               </div>
             </>
           ) : (

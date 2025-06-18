@@ -1,6 +1,6 @@
 import UserProfile from "./UserProfile";
 
-function page() {
+function User() {
   return (
     <div>
       <h1>Login</h1>
@@ -9,4 +9,4 @@ function page() {
   );
 }
 
-export default page;
+export default User;
